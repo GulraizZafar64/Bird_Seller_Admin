@@ -1,0 +1,103 @@
+.tree-view {
+    font-family: Arial, sans-serif;
+  }
+  
+  .folder {
+    display: flex;
+    cursor: pointer;
+    padding: 5px;
+    margin-bottom: 5px;
+    border-radius: 3px;
+    width: 500px;
+    justify-content: space-between;
+    /* background-color: #f2f2f2; */
+  }
+  
+  .folder:hover {
+    background-color: #3d4761;
+  }
+  
+  .folder .icon {
+    margin-right: 5px;
+  }
+  
+  .file {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    margin-left: 84px;
+    border-radius: 3px;
+    justify-content: space-between;
+    /* background-color: #f2f2f2; */
+  }
+
+  
+  .file:hover {
+    background-color: #3d4761;
+    cursor: pointer;
+  }
+  
+  .folder-contents-enter {
+    opacity: 0;
+    max-height: 0;
+  }
+  
+  .folder-contents-enter-active {
+    opacity: 1;
+    max-height: 100px;
+    transition: opacity 300ms, max-height 300ms;
+  }
+  
+  .folder-contents-exit {
+    opacity: 1;
+    max-height: 100px;
+  }
+  
+  .folder-contents-exit-active {
+    opacity: 0;
+    max-height: 0;
+    transition: opacity 300ms, max-height 300ms;
+  }
+  
+.plusicon{
+    color: white;
+}
+  .plusicon:hover{
+    color: blue;
+  }
+  .plusicon2:hover{
+    color: red;
+  }
+  .plusicon2{
+    color: white;
+  }
+
+
+  .iframe-container {
+    position: relative;
+    width: 375px; /* Set the desired width for the mobile view */
+    height: 667px; /* Set the desired height for the mobile view */
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 16px; /* Adjust the border radius to control the roundness of corners */
+    border: 10px solid white; /* Add a white border */
+  }
+
+  /* Style for the scrollable content inside the container */
+  .iframe-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* overflow-y: scroll; */
+    padding: 16px; /* Adjust the padding as needed */
+  }
+
+  /* Style for the iframe */
+  .iframe-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 15px; /* Adjust the border radius to match the container's border radius */
+  }

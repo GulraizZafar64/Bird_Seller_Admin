@@ -100,14 +100,14 @@ var routes = [
     component: Category,
     layout: "/admin",
   },
-  // {
-  //   path: "/login",
-  //   name: "Login",
-  //   rtlName: "لوحة القيادة",
-  //   icon: "tim-icons icon-chart-pie-36",
-  //   component: Login,
-  //   layout: "/auth",
-  // },
+  {
+    path: "/login",
+    name: "Login",
+    rtlName: "لوحة القيادة",
+    icon: "tim-icons icon-chart-pie-36",
+    component: Login,
+    layout: "/auth",
+  },
   // {
   //   path: "/register",
   //   name: "Register",

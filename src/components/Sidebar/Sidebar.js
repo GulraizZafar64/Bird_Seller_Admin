@@ -122,6 +122,9 @@ function Sidebar(props) {
               {routes.map((prop, key) => {
                 if (prop.redirect) return null;
                 return (
+                  <>
+              {    prop.name=="Login"?''
+                  :
                   <li
                     className={
                       activeRoute(prop.path) + (prop.pro ? " active-pro" : "")
@@ -137,7 +140,8 @@ function Sidebar(props) {
                       <i className={prop.icon} />
                       <p>{rtlActive ? prop.rtlName : prop.name}</p>
                     </NavLink>
-                  </li>
+                  </li>}
+                  </>
                 );
               })}
             </Nav>

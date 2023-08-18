@@ -66,7 +66,7 @@ function FixedPlugin(props) {
               />{" "}
             </div>
           </li>
-          <li className="adjustments-line text-center color-change">
+          {/* <li className="adjustments-line text-center color-change">
             <ThemeContext.Consumer>
               {({ changeTheme }) => (
                 <>
@@ -83,8 +83,8 @@ function FixedPlugin(props) {
                 </>
               )}
             </ThemeContext.Consumer>
-          </li>
-          <li className="button-container">
+          </li> */}
+          {/* <li className="button-container">
             <Button
               href="https://www.creative-tim.com/product/black-dashboard-react"
               color="primary"
@@ -114,7 +114,7 @@ function FixedPlugin(props) {
             >
               Get pro version
             </Button>
-          </li>
+          </li> */}
         </ul>
       </Dropdown>
     </div>

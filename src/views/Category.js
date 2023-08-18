@@ -1,5 +1,5 @@
 
-import { Tree } from "antd";
+import { Divider, Tree } from "antd";
 import React, { useEffect, useRef, useState } from "react";
 import {
   Card,
@@ -14,6 +14,9 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import './categories.css'
 import { PlusOutlined, FolderOpenOutlined, SettingOutlined, UploadOutlined, FileOutlined, DeleteOutlined, FolderOutlined, RightOutlined, DownOutlined, EditOutlined, EyeOutlined,PlusCircleOutlined} from '@ant-design/icons'
 import { baseUrl } from "config/Config";
+import AddEditCategory from "components/AddEditCategory/AddEditCategory";
+import DeleteModal from "components/DeleteModal/DeleteModal";
+import AddEditSubCategory from "components/AddEditSubCategory/AddEditSubCategory";
 function Category() {
     const [folderList, setFolderList] = useState([])
     
@@ -22,13 +25,18 @@ function Category() {
     const fileInputRef = useRef(null);
     const [selectedObject, setSelectedObject] = useState({})
     const [deleteModal, setdeleteModal] = useState(false)
+    const [subDeleteModal, setSubDeleteModal] = useState(false)
     const [uploadModel, setUploadModel] = useState(false)
     const [editFileModel, setEditFileModel] = useState(false)
     const [usersList, setusersList] = useState([])
+    const [addEditCategory,setAddEditCategory]=useState(false)
+    const [editCategory,setEditCategory]=useState({})
+    const [addEditSubCategory,setAddEditSubCategory]=useState(false)
+    const [editSubCategory,setEditSubCategory]=useState("")
+    const [mainCategory,setMainCategory]=useState({})
     const [selectedFile, setselectedFile] = useState({})
     const [activeKey, setActiveKey] = useState('1')
     const [fileDeletetruer, setFileDeletetruer] = useState(false)
-    const [assignedModal, setAssignedModal] = useState(false)
     const authtoken=localStorage.getItem('apiToken')
     useEffect(() => {
         getFolders()
@@ -78,21 +86,13 @@ function Category() {
         };
 
         const onEditClick = (item) => {
-            setSelectedObject(item)
-            setIsEdit(true)
-            setfolderModel(true)
+            setEditCategory(item)
+            setAddEditCategory(true)
         };
 
 
-        const openUploadModel = item => {
-            setSelectedObject(item)
-            setUploadModel(true)
-        }
-
-
         const onDeleteClick = item => {
-            setFileDeletetruer(false)
-            setSelectedObject(item)
+          setEditCategory(item)
             setdeleteModal(true)
         }
 
@@ -111,13 +111,15 @@ function Category() {
                             </div>
                             <div className='d-flex'>
                                 {
-                                    <div title='Edit Folder' onClick={() => onEditClick(item)}  className="icon ml-2"><EditOutlined className='plusicon' /></div>
+                                    <div title='Edit Category' onClick={() => onEditClick(item)}  className="icon ml-2"><EditOutlined className='plusicon' /></div>
                                 }
                                 {
-                                    <div title="Delete Folder" onClick={() => onDeleteClick(item)}  className="icon ml-2"><DeleteOutlined className='plusicon2' /></div>
+                                    <div title="Delete Category" onClick={() => onDeleteClick(item)}  className="icon ml-2"><DeleteOutlined className='plusicon2' /></div>
                                 }
                                 {
-                                    <div title={`Upload File in ${name}`} onClick={() => openUploadModel(item)} className="icon ml-2"><PlusCircleOutlined className='plusicon2' /></div>
+                                    <div title={`Add Sub Category`} onClick={() =>{ 
+                                      setMainCategory(item)
+                                      setAddEditSubCategory(true)}} className="icon ml-2"><PlusCircleOutlined className='plusicon3' /></div>
                                 }
                             </div>
                         </div>
@@ -139,18 +141,16 @@ function Category() {
     };
 
     const File = ({ item, handleClick }) => {
-        const fileDelete = () => {
-            setFileDeletetruer(true)
-            setSelectedObject(item)
-            setdeleteModal(true)
+        const deleteSubCate = (item) => {
+          setEditSubCategory(item)
+          setSubDeleteModal(true)
         }
-        const fileEdit = () => {
-            setSelectedObject(item)
-            setEditFileModel(true)
+        const EditSub = (item) => {
+          setEditSubCategory(item)
+          setAddEditSubCategory(true)
         }
         return (
             <div
-                style={{ backgroundColor: selectedFile.id == item.id ? '#3d4761' : '#525f7f' }}
                 className="file">
                <div>
                <span
@@ -164,13 +164,10 @@ function Category() {
                </div>
                 <div style={{paddingBottom:"3px"}} className='d-flex'>
                                 {
-                                    <div title='Edit Folder' onClick={() => onEditClick(item)}  className="icon ml-2"><EditOutlined className='plusicon' /></div>
+                                    <div title='Edit Folder' onClick={() => EditSub(item)}  className="icon ml-2"><EditOutlined className='plusicon' /></div>
                                 }
                                 {
-                                    <div title="Delete Folder" onClick={() => onDeleteClick(item)}  className="icon ml-2"><DeleteOutlined className='plusicon2' /></div>
-                                }
-                                {
-                                    <div title={`Upload File in ${name}`} onClick={() => openUploadModel(item)} className="icon ml-2"><PlusCircleOutlined className='plusicon2' /></div>
+                                    <div title="Delete Folder" onClick={() => deleteSubCate(item)}  className="icon ml-2"><DeleteOutlined className='plusicon2' /></div>
                                 }
                             </div>
                      {/* <span title='Edit File' onClick={() => fileEdit(item)}  className="icon ml-2 "><EditOutlined className='plusicon' /></span>
@@ -180,16 +177,25 @@ function Category() {
                 </div>
         );
     };
+  
   return (
     <>
       <div className="content">
         <Row>
           <Col md="12">
             <Card>
-              <CardHeader>
-                <CardTitle tag="h4">Category</CardTitle>
-              </CardHeader>
-              <CardBody>
+              <div className="mainheaderCategory">
+               <div>
+               <h3 tag="h4">Category</h3>
+               </div>
+               <div>
+               <button className="AddOn" onClick={() =>{ 
+                                      setEditCategory("")
+                                      setAddEditCategory(true)}} >Add Category</button>
+               </div>
+              </div>
+              <div className="line"/>
+              <CardBody style={{padding:"5px 30px"}}>
                 {/* <Table style={{overflow:"none"}} className="tablesorter" responsive>
                   <thead className="text-primary">
                     <tr>
@@ -288,6 +294,15 @@ function Category() {
           </Col>
         </Row>
       </div>
+
+      <AddEditCategory open={addEditCategory} reloader={()=>getFolders()} closeIt={()=>setAddEditCategory(false)} editItem={editCategory}/>
+      <AddEditSubCategory open={addEditSubCategory} reloader={()=>getFolders()} closeIt={()=>setAddEditSubCategory(false)} editItem={editSubCategory} category={mainCategory}/>
+      <DeleteModal name={`${editCategory.name}`} deleteOpen={deleteModal} deleteClose={()=>{
+        setEditCategory("")
+        setdeleteModal(false)}} url={`category/${editCategory._id}`} reloder={()=>getFolders()}/>
+      <DeleteModal name={`${editSubCategory.name}`} deleteOpen={subDeleteModal} deleteClose={()=>{
+        setEditSubCategory("")
+        setSubDeleteModal(false)}} url={`sub-category/${editSubCategory._id}`} reloder={()=>getFolders()}/>
     </>
   );
 }

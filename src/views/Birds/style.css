@@ -1,0 +1,43 @@
+.myDropper{
+    height: 280px;
+    width: 100%;
+    background-color: rgba(145, 158, 171, 0.08);
+    border: 1px dashed rgba(145, 158, 171, 0.2);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    transition: .5s;
+}
+.myDropper:hover{
+    background-color: rgba(58, 73, 88, 0.08);
+ 
+}
+.myDropper>h3{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.my-file-preview{
+    border: 1px solid rgba(145, 158, 171, 0.2);
+    display: flex;
+    width: 100%;
+    padding: 20px;  
+    margin-top: 20px;
+    gap: 10px;
+    height: 80px;
+}
+.my-file-preview>div>p{
+    color: rgb(109, 107, 107);
+}
+.icon-container{
+    right: 40px;
+    position: absolute;
+    margin-top: 6px;
+}
+.icon-container>svg{
+font-size: 1.5rem;
+cursor: pointer;
+}
+

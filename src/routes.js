@@ -26,6 +26,8 @@ import UserProfile from "views/UserProfile.js";
 import Login from "views/Login";
 import Register from "views/Register";
 import Category from "views/Category";
+import Birds from "views/Birds/Birds";
+import CreateBird from "views/Birds/CreateBird";
 
 var routes = [
   {
@@ -100,6 +102,23 @@ var routes = [
     component: Category,
     layout: "/admin",
   },
+  {
+    path: "/birds",
+    name: "Birds",
+    rtlName: "birds",
+    icon: "tim-icons icon-world",
+    component: Birds,
+    layout: "/admin",
+  },
+  {
+    path: "/createBird",
+    name: "",
+    rtlName: "",
+    icon: "",
+    component: CreateBird,
+    layout: "/admin",
+  },
+ 
   {
     path: "/login",
     name: "Login",
